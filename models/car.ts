@@ -14,4 +14,15 @@ class Car{
     addWheel(wheel:Wheel):void{
         this.wheels.push(wheel);
     }
+
+    toString():string{
+        var str:string = `[Plate] ${this.plate}; [Brand] ${this.brand}; [Color] ${this.color}; \n`;
+        var i = 1;
+        this.wheels.forEach(w => {
+            str += `[Wheel ${i}] Brand: ${w.brand}; Diameter:  ${w.diameter}; \n`;
+            i++;
+        });
+
+        return str;
+    }
 }
