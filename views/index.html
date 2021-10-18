@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../models/car.js"></script>
+    <script src="../models/wheel.js"></script>
+    <script src="../controllers/controller.js"></script>
+    <!-- Bootswatch cdn -->
+    <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
+</head>
+
+<body>
+    <main class="container py-5">
+        <!-- TITLE and STAR BUTTON -->
+        <div class="row text-center mb-5">
+            <h1>Car Creator</h1>
+        </div>
+        <div class="row mb-5">
+            <button id="start-button" class="btn btn-primary w-25 m-auto" onclick="showCarForm()">START</button>
+        </div>
+        <!-- HERE GOES THE CAR CREATED: THE RESULT -->
+        <section class="result">
+            <div id="carInfo">
+
+            </div>
+        </section>
+        <!-- FORM CONTAINER THAT WILL LOAD EACH FORM (GENERAL INFO AND WHEELS INFO)-->
+        <article class="form-container" id="form-container">
+
+        </article>
+    </main>
+    <!-- <button onclick="createCar('1212SDS','SEAT','ROJO')">Create car</button> -->
+</body>
+
+</html>
