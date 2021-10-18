@@ -1,27 +1,24 @@
-let car: Car;
-let carForm: HTMLFormElement;
-let wheelsForm: HTMLFormElement;
-// let wSize: string;
-// let wBrand: string;
+var car: Car;
+let carForm: any;
+let wheelsForm: any;
 
+let plate: string;
+let brand: string;
+let color: string;
 
+function initApp(){
+    showCarForm();
+}
 function createCar(plate: string, brand: string, color: string) {
-    let car = new Car(plate, color, brand);
-
-    // document.getElementById('car-form')
-    // = "CAR: PLATE: " + car.plate
-    //     + " COLOR: " + car.color + " BRAND: " + brand
-    //     + " WHEELS: " + JSON.stringify(car.wheels);
+    car = new Car(plate, color, brand);
 }
 
-function getWSize() {
-
-}
 function addWheel(size: number, brand: string) {
     car.addWheel(new Wheel(size, brand));
 }
 
 function showCarForm() {
+    
     const formContainer = document.querySelector('#form-container');
     const startButton = document.querySelector('#start-button');
     startButton?.setAttribute('disabled', '');
@@ -50,9 +47,18 @@ function showCarForm() {
         </div>
         `;
     formContainer?.appendChild(carForm);
+   
 
 }
 function showWheelsForm() {
+    let plate = document.querySelector("#plate") as HTMLInputElement;
+    let brand = document.querySelector("#brand") as HTMLInputElement;
+    let color = document.querySelector("#color") as HTMLInputElement;
+
+    createCar(plate.value, brand.value, color.value);
+
+    console.log(car);
+
     const formContainer = document.querySelector('#form-container');
     let wheelsForm = document.createElement('form');
     wheelsForm.className = "card p-5 mb-4";
@@ -62,7 +68,7 @@ function showWheelsForm() {
         <div class="col-3 justify-content-between border-end">
             <h6>Wheel nº 1:</h6>
             <label for="w-size">Wheel Size</label>
-            <input type="text" name="w-size" id="w-size" class="form-control me-3" onchange="getWSize();">
+            <input type="text" name="w-size" id="w-size" class="form-control me-3">
             <label for="w-brand">Wheel Brand</label>
             <input type="text" name="w-brand" id="w-brand" class="form-control">
         </div>
