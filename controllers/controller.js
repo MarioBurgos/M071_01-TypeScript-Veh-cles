@@ -39,6 +39,7 @@ function showWheelsForm() {
     // crear el nuevo form
     var wheelsForm = document.createElement('form');
     wheelsForm.className = "card p-5 mb-4";
+    wheelsForm.setAttribute("id", "wheels-form");
     wheelsForm.innerHTML = "\n    <p class=\"h4 pb-4\">Wheels detail:</p>\n    <div class=\"row mb-4\">\n        <div class=\"col-3 justify-content-between border-end\">\n            <h6>Wheel n\u00BA 1:</h6>\n            <label for=\"w-size\">Wheel Size</label>\n            <input type=\"text\" name=\"s1\" id=\"s1\" class=\"form-control me-3 w-size\">\n            <label for=\"w-brand\">Wheel Brand</label>\n            <input type=\"text\" name=\"b1\" id=\"b1\" class=\"form-control\">\n        </div>\n        <div class=\"col-3 justify-content-between border-end\">\n            <h6>Wheel n\u00BA 2:</h6>\n            <label for=\"w-size\">Wheel Size</label>\n            <input type=\"text\" name=\"s2\" id=\"s2\" class=\"form-control me-3 w-size\">\n            <label for=\"w-brand\">Wheel Brand</label>\n            <input type=\"text\" name=\"b2\" id=\"b2\" class=\"form-control\">\n        </div>\n        <div class=\"col-3 justify-content-between border-end\">\n            <h6>Wheel n\u00BA 3:</h6>\n            <label for=\"w-size\">Wheel Size</label>\n            <input type=\"text\" name=\"s3\" id=\"s3\" class=\"form-control me-3 w-size\">\n            <label for=\"w-brand\">Wheel Brand</label>\n            <input type=\"text\" name=\"b3\" id=\"b3\" class=\"form-control\">\n        </div>\n        <div class=\"col-3 justify-content-between\">\n            <h6>Wheel n\u00BA 4:</h6>\n            <label for=\"w-size\">Wheel Size</label>\n            <input type=\"text\" name=\"s4\" id=\"s4\" class=\"form-control me-3 w-size\">\n            <label for=\"w-brand\">Wheel Brand</label>\n            <input type=\"text\" name=\"b4\" id=\"b4\" class=\"form-control\">\n        </div>\n    </div>\n    <div class=\"col-12\">\n        <button class=\"btn btn-primary float-end\" onclick=\"collectWheelsData(); return false;\">Create Car</button>\n    </div>\n    ";
     // guardar los datos del formulario anterior y comprobar si se puede continuar
     if (collectCarData()) {
@@ -49,11 +50,20 @@ function showWheelsForm() {
 }
 /** Captura los datos de los inputs del primer formulario y los utiliza para crear un coche (sin ruedas) */
 function collectCarData() {
+    var validator = new Validator();
     plate = document.querySelector("#plate");
     brand = document.querySelector("#brand");
     color = document.querySelector("#color");
-    if (plate.value == '' || brand.value == '') {
-        showMessage("Missing data!  Unable to create a car without a plate number and/or brand", "danger", 1500);
+    if (!validator.validatePlate(plate.value)) {
+        showMessage("Wrong plate", "danger", 1500);
+        return false;
+    }
+    if (!validator.validateBrand(brand.value)) {
+        showMessage("Missing data!  Unable to create a car without a brand", "danger", 1500);
+        return false;
+    }
+    if (!validator.validateColor(color.value)) {
+        showMessage("Missing data!  Unable to create a car without a color", "danger", 1500);
         return false;
     }
     createCar(plate.value, brand.value, color.value);

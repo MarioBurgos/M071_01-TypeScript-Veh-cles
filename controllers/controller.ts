@@ -54,6 +54,7 @@ function showCarForm() {
             <button class="btn btn-primary float-end" onclick="showWheelsForm(); return false">Add Wheels</button>
         </div>
         `;
+        
     formContainer?.appendChild(carForm);
 
 
@@ -67,6 +68,7 @@ function showWheelsForm() {
     // crear el nuevo form
     let wheelsForm = document.createElement('form');
     wheelsForm.className = "card p-5 mb-4";
+    wheelsForm.setAttribute("id", "wheels-form");
     wheelsForm.innerHTML = `
     <p class="h4 pb-4">Wheels detail:</p>
     <div class="row mb-4">
@@ -116,11 +118,21 @@ function showWheelsForm() {
 
 /** Captura los datos de los inputs del primer formulario y los utiliza para crear un coche (sin ruedas) */
 function collectCarData(): boolean {
+    var validator = new Validator();
+
     plate = document.querySelector("#plate") as HTMLInputElement;
     brand = document.querySelector("#brand") as HTMLInputElement;
     color = document.querySelector("#color") as HTMLInputElement;
-    if(plate.value == '' || brand.value == ''){
-        showMessage("Missing data!  Unable to create a car without a plate number and/or brand", "danger", 1500);
+    if(!validator.validatePlate(plate.value)){
+        showMessage("Wrong plate", "danger", 1500);
+        return false;
+    }
+    if(!validator.validateBrand(brand.value)){
+        showMessage("Missing data!  Unable to create a car without a brand", "danger", 1500);
+        return false;
+    }
+    if(!validator.validateColor(color.value)){
+        showMessage("Missing data!  Unable to create a car without a color", "danger", 1500);
         return false;
     }
     createCar(plate.value, brand.value, color.value);
